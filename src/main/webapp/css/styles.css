@@ -1,0 +1,11 @@
+.task.task--new .task__title {
+    color: #198754;
+}
+
+.task.task--in_progress .task__title {
+    color: #0d6efd;
+}
+
+.task.task--done .task__title {
+    text-decoration: line-through;
+}

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>WebTaskManager</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+   <main role="main" class="container">
+    <div class="row">
+      <div class="col"><h1>Awesome task manager</h1></div>
+    </div>
+    <div class="row">
+      <div class="col-lg-8">
+        <h3>Tasks list</h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Task</th>
+              <th scope="col" style="width: 20%">Status</th>
+              <th scope="col" style="width: 15%">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="tasks">
+
+          </tbody>
+        </table>
+      </div>
+      <div class="col-lg-4">
+        <h3>Add a new task</h3>
+        <form method="post" action="/tasks" id="add_task_form" class="add-task-form">
+          <div class="mb-3">
+            <label for="add-task-form__title" class="form-label">Title</label>
+            <input type="text" name="title" id="add-task-form__title" class="form-control" required="required">
+          </div>
+          <div class="mb-3">
+            <label for="add-task-form__description" class="form-label">Description</label>
+            <textarea name="description" id="add-task-form__description" class="form-control"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="add-task-form__status" class="form-label">Status</label>
+            <select name="status" id="add-task-form__status" class="form-select">
+              <option value="new">New</option>
+              <option value="in_progress">In progress</option>
+              <option value="done">Done</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Add task</button>
+        </form>
+      </div>
+    </div>
+  </main>
+   <div class="modal fade" id="update-task-modal" tabindex="-1" aria-hidden="true">
+     <div class="modal-dialog">
+       <div class="modal-content">
+         <div class="modal-header">
+           <h5 class="modal-title" id="exampleModalLabel">Edit task</h5>
+           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <div class="modal-body">
+           <form method="post" action="/tasks" id="update-task-form" class="update-task-form">
+             <div class="mb-3">
+               <label for="update-task-form__title" class="form-label">Title</label>
+               <input type="text" name="title" id="update-task-form__title" class="form-control" required="required">
+             </div>
+             <div class="mb-3">
+               <label for="update-task-form__description" class="form-label">Description</label>
+               <textarea name="description" id="update-task-form__description" class="form-control"></textarea>
+             </div>
+             <div class="mb-3">
+               <label for="update-task-form__status" class="form-label">Status</label>
+               <select name="status" id="update-task-form__status" class="form-select">
+                 <option value="new">New</option>
+                 <option value="in_progress">In progress</option>
+                 <option value="done">Done</option>
+               </select>
+             </div>
+             <input type="hidden" name="id" id="update-task-form__id">
+           </form>
+         </div>
+         <div class="modal-footer">
+           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+           <button type="button" class="btn btn-primary" id="update-task-form__submit">Update task</button>
+         </div>
+       </div>
+     </div>
+   </div>
+  <div class="toast-container position-absolute bottom-0 end-0 p-3" id="toast-container"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  <script id="status-template" type="text/x-custom-template">
+    <select class="form-select task-status">
+      <option value="new">New</option>
+      <option value="in_progress">In progress</option>
+      <option value="done">Done</option>
+    </select>
+  </script>
+  <script id="actions-template" type="text/x-custom-template">
+   <button type="button" class="btn btn-success edit-button"><i class="fas fa-edit"></i></button>
+   <button type="button" class="btn btn-danger remove-button"><i class="far fa-trash-alt"></i></button>
+  </script>
+   <script id="toast-template" type="text/x-custom-template">
+     <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+       <div class="toast-header">
+         <strong class="me-auto">Awesome task manager</strong>
+         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+       </div>
+       <div class="toast-body"></div>
+     </div>
+   </script>
+  <script src="js/scripts.js"></script>
+</body>
+</html>
